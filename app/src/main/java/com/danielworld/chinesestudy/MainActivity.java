@@ -11,9 +11,16 @@ import android.widget.TextView;
 import com.danielworld.chinesestudy.adapter.MainPagerAdapter;
 import com.danielworld.chinesestudy.customView.TopView;
 import com.danielworld.chinesestudy.model.ChineseData;
+import com.danielworld.chinesestudy.util.ParsingUtil;
 import com.danielworld.chinesestudy.util.SharedPrefUtil;
+import com.namgyuworld.utility.Logger;
+import com.namgyuworld.utility.app.AppUtil;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+    private Logger LOG = Logger.getInstance();
 
     private ViewPager pager = null;
     private MainPagerAdapter pagerAdapter = null;
@@ -27,6 +34,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if(AppUtil.isDebuggable(this)){
+            LOG.enableLog();
+        }
+        else{
+            LOG.disableLog();
+        }
 
         chapter = getIntent().getExtras().getInt("position");
 
@@ -80,14 +94,29 @@ public class MainActivity extends AppCompatActivity {
 
         try{
             LayoutInflater inflater = getLayoutInflater();
-            LinearLayout[] fLayouts = new LinearLayout[ChineseData.pageCountPerChapter];
+            String rawData = ChineseData.getChapterData(chapter);
+
+            List<String> cdList = ParsingUtil.fromRawData(rawData);
+            List<String> wordList = null;
+
+            LOG.d("NewTAG", "List Size : " + cdList.size());
+
+            LinearLayout[] fLayouts = new LinearLayout[cdList.size()];
 
             for(int i = 0; i < fLayouts.length; i++){
                 fLayouts[i] = (LinearLayout) inflater.inflate(R.layout.fragment_main, null);
-                String data = ChineseData.getChapterData(chapter);
+
+                wordList = ParsingUtil.fromCDLine(cdList.get(i));
+
+                StringBuilder sb = new StringBuilder();
+
+                for(int j = 0; j < wordList.size(); j++){
+                    sb.append(wordList.get(j));
+                    sb.append("\n\n");
+                }
 
                 TextView tv = new TextView(this);
-                tv.setText(data);
+                tv.setText(sb);
 
                 fLayouts[i].addView(tv);
 
