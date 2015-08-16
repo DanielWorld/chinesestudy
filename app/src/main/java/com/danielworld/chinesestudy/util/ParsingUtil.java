@@ -6,5 +6,9 @@ package com.danielworld.chinesestudy.util;
  * This file is part of chinesestudy (https://github.com/DanielWorld)
  * Created by danielpark on 2015. 8. 11..
  */
-public class JsonUtil {
+public class ParsingUtil {
+
+    public void fromRawData(){
+
+    }
 }
