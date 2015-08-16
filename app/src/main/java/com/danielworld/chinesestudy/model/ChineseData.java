@@ -64,4 +64,15 @@ public class ChineseData {
                 return "";
         }
     }
+
+    public static String getChapterTitle(int chapter){
+        switch (chapter){
+            case 0:
+                return "Chapter 00";
+            case 1:
+                return "Chapter 01";
+            default:
+                return "";
+        }
+    }
 }

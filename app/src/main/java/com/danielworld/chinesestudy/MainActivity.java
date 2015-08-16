@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                pref.setCurrentPage(position);
+//                pref.setCurrentPage(position);
             }
 
             @Override
@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
     private void init(){
         pref = new SharedPrefUtil(getApplicationContext());
         topView = (TopView) findViewById(R.id.topMenuBar);  // Top Menu bar
+        topView.setTitle(ChineseData.getChapterTitle(chapter)); // Set the title of Top View
 
         pagerAdapter = new MainPagerAdapter();
         pager = (ViewPager) findViewById(R.id.view_pager);
@@ -102,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
             LOG.d("NewTAG", "List Size : " + cdList.size());
 
             LinearLayout[] fLayouts = new LinearLayout[cdList.size()];
+            TextView tv;
 
             for(int i = 0; i < fLayouts.length; i++){
                 fLayouts[i] = (LinearLayout) inflater.inflate(R.layout.fragment_main, null);
@@ -115,10 +117,12 @@ public class MainActivity extends AppCompatActivity {
                     sb.append("\n\n");
                 }
 
-                TextView tv = new TextView(this);
+//                TextView tv = new TextView(this);
+                tv = (TextView) fLayouts[i].findViewById(R.id.study_contents);
+                tv.setTextSize(pref.getContentTextSize());
                 tv.setText(sb);
 
-                fLayouts[i].addView(tv);
+//                fLayouts[i].addView(tv);
 
                 pagerAdapter.addView(fLayouts[i]);
             }

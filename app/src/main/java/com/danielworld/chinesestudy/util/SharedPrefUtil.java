@@ -15,6 +15,7 @@ public class SharedPrefUtil {
 
     private static final String KEY_PREF = "key_pref";
     private final String KEY_CURRENT_PAGE = "key_current_page";
+    private final String KEY_CONTENT_TEXT_SIZE = "key_content_text_size";
 
     public SharedPrefUtil(Context ctx){
         if(mPref == null)
@@ -27,5 +28,13 @@ public class SharedPrefUtil {
 
     public int getCurrentPage(){
         return mPref.getInt(KEY_CURRENT_PAGE, 0);
+    }
+
+    public void setContentTextSize(int textSize){
+        mPref.edit().putInt(KEY_CONTENT_TEXT_SIZE, textSize).commit();
+    }
+
+    public int getContentTextSize(){
+        return mPref.getInt(KEY_CONTENT_TEXT_SIZE, 10);
     }
 }
