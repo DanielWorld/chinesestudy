@@ -46,7 +46,19 @@ public class ChineseData {
             "<cd1_09 | 你好! [nǐ hǎo] | 你好! [nǐ hǎo] | 你好吗? [nǐ hǎo ma] | 我很好, 谢谢. [wǒ hěn hǎo, xièxie] | 你家人好吗? [nǐ jiārén hǎo ma] | 他们也都很好 [tāmen yě dōu hěn hǎo] | " +
                     "你去学校吗? [nǐ qù xuéxiào ma] | 我不去, 你呢? [wǒ bú qù, nǐ ne] | 我去 [wǒ qù]"
             ;
-    private static final String chapter02 = "";
+    private static final String chapter02 =
+            "<cd1_10 | A: Excuse me, What's your family name? | B: My family name is Kim and first name is Hea Shen | A: Nice to meet you, This is my namecard! | B: Nice to meet you, too. | " +
+                    "A: Does this food taste good? | B: It tastes good | A: Dinner party is quite big | B: It's big but there no fun" +
+            "<cd1_11 | 请问 [qǐngwèn] Excuse me | 您 [nín] you(존칭어) | 贵 [guì] expensive, precious | 姓 [xìng] family name | 叫 [jiào] (call me) first name | " +
+            "请问, 您贵姓? [qǐngwèn, nín guì xìng?] Excuse me, What's your family name? | 我姓金, 叫喜善 [wǒ xìng jīn, jiào xǐ shàn] My family name is Gold, and first name is Happy Generous | " +
+            "认识 [rènshi] know(recognize) | 高兴 [gāoxìng] enjoyable, joyful | 这 [zhè] This | 是 [shì] is / are | 的 [de] ~의 | 名片 [míngpiàn] namecard | " +
+            "认识您很高兴 [rènshi nín hěn gāoxìng] Glad to know you | 这是我的名片 [zhè shì wǒ de míngpiàn] This is my namecard" +
+            "<cd1_12 | 个 [gè] ~개, ~명 | 菜 [cài] food | 好吃 [hǎochī] delicious | 这个菜好吃吗? [zhè gè cài hǎochī ma?] Does this food taste good? | 很好吃 [hěn hǎochī] tastes so good | " +
+            "晚会 [wǎnhuì] evening party | 大 [dà] big | 可是 [kěshì] but, however | 有 [yǒu] there is, have | 没有 [méiyǒu] there isn't, don't have | 意思 [yìsi] meaning, interest | " +
+            "晚会很大 [wǎnhuì hěn dà] What a big party! | 大是大, 可是没有意思 [dà shì dà, kěshì méiyǒu yìsi] It's big, but not fun at all." +
+            "<cd1_13 | 请问, 您贵姓? [qǐngwèn, nín guì xìng?] | 我姓金, 叫喜善 [wǒ xìng jīn, jiào xǐ shàn] | 认识您很高兴. 这是我的名片 [rènshi nín hěn gāoxìng. zhè shì wǒ de míngpiàn] | " +
+            "我也很高兴 [wǒ yě hěn gāoxìng] | 这个菜好吃吗? [zhè gè cài hǎochī ma?] | 很好吃 [hěn hǎochī] | 晚会很大 [wǎnhuì hěn dà] | 大是大, 可是没有意思 [dà shì dà, kěshì méiyǒu yìsi]"
+            ;
     private static final String chapter03 = "";
     private static final String chapter04 = "";
 

@@ -1,1 +1,4 @@
 include ':app'
+
+include ':DanielParkUtility'
+project(':DanielParkUtility').projectDir = new File('../Android/DanielParkUtility')
