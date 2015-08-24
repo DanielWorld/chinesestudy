@@ -41,7 +41,7 @@ public class StudyListActivity extends Activity implements AdapterView.OnItemCli
         mListView.setAdapter(mAdapter);
         mListView.setOnItemClickListener(this);
 
-        for(int i=0; i < ChineseData.totalChapterCount; i++) {
+        for(int i=0; i < ChineseData.getInstance().totalChapterCount; i++) {
             mAdapter.add("Chapter " + i);
         }
     }
@@ -56,7 +56,6 @@ public class StudyListActivity extends Activity implements AdapterView.OnItemCli
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
 
         if(isBackKeyPressed){
             warningToast.cancel();

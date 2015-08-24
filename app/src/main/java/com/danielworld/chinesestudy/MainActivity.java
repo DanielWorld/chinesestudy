@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.danielworld.chinesestudy.adapter.MainPagerAdapter;
 import com.danielworld.chinesestudy.customView.TopView;
@@ -35,10 +36,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if(AppUtil.isDebuggable(this)){
+        if (AppUtil.isDebuggable(this)) {
             LOG.enableLog();
-        }
-        else{
+        } else {
             LOG.disableLog();
         }
 
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         /**
          * This is not good way for performance, but you gotta save all records while you're ruffling pages...
          */
-        pager.setOnPageChangeListener(new ViewPager.OnPageChangeListener(){
+        pager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -59,6 +59,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onPageSelected(int position) {
 //                pref.setCurrentPage(position);
+                try {
+                    topView.setAudioTitle(position);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override
@@ -73,10 +78,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void init(){
+    private void init() {
         pref = new SharedPrefUtil(getApplicationContext());
         topView = (TopView) findViewById(R.id.topMenuBar);  // Top Menu bar
-        topView.setTitle(ChineseData.getChapterTitle(chapter)); // Set the title of Top View
+        topView.setTitle(ChineseData.getInstance().getChapterTitle(chapter)); // Set the title of Top View
 
         pagerAdapter = new MainPagerAdapter();
         pager = (ViewPager) findViewById(R.id.view_pager);
@@ -85,17 +90,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        topView.releaseAudio();  // make sure to release audio
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         refreshPage();
     }
 
-    private void refreshPage(){
+    private void refreshPage() {
         pagerAdapter.removeAllView(pager);
 
-        try{
+        try {
             LayoutInflater inflater = getLayoutInflater();
-            String rawData = ChineseData.getChapterData(chapter);
+            String rawData = ChineseData.getInstance().getChapterData(chapter);
 
             List<String> cdList = ParsingUtil.fromRawData(rawData);
             List<String> wordList = null;
@@ -105,14 +116,18 @@ public class MainActivity extends AppCompatActivity {
             LinearLayout[] fLayouts = new LinearLayout[cdList.size()];
             TextView tv;
 
-            for(int i = 0; i < fLayouts.length; i++){
+            for (int i = 0; i < fLayouts.length; i++) {
                 fLayouts[i] = (LinearLayout) inflater.inflate(R.layout.fragment_main, null);
 
                 wordList = ParsingUtil.fromCDLine(cdList.get(i));
 
                 StringBuilder sb = new StringBuilder();
 
-                for(int j = 0; j < wordList.size(); j++){
+                for (int j = 0; j < wordList.size(); j++) {
+                    if (j == 0) {
+                        topView.setAudioList(i, wordList.get(j));
+
+                    }
                     sb.append(wordList.get(j));
                     sb.append("\n\n");
                 }
@@ -128,13 +143,14 @@ public class MainActivity extends AppCompatActivity {
             }
             pagerAdapter.notifyDataSetChanged();
 
-            try{
+            try {
                 // Go to the certain page that saved before
 //                pager.setCurrentItem(pref.getCurrentPage());
-            }catch (Exception e){
+                topView.setAudioTitle(pager.getCurrentItem()); // Set current audio title
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
